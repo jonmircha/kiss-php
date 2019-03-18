@@ -1,0 +1,26 @@
+/* ********** Media Queries ********** */
+
+@mixin mq($bp) {
+  @if map-has-key($breakpoints, $bp) {
+    @media screen and ( min-width: map-get($breakpoints, $bp) ) {
+      @content;
+    }
+  } @else {
+    @media screen and ( min-width: $bp ) {
+      @content;
+    }
+  }
+}
+
+/* Como usar el mixin */
+/*
+body {
+  background-color: red;
+  @include mq(30em) {
+    background-color: green;
+  }
+  @include mq(l) {
+    background-color: yellow;
+  }
+}
+*/

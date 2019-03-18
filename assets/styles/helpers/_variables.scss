@@ -1,0 +1,40 @@
+/* ********** Custom Properties CSS ********** */
+:root {
+  --main-font: 'Raleway';
+  --alternate-font: sans-serif;
+  --font-size: 16px;
+  --line-height: 1.6;
+
+  --main-color: rgb(136, 146, 191);
+  --main-modal-color: rgba(136, 146, 191, .75);
+  --second-color: rgb(79, 91, 147);
+  --second-modal-color: rgba(79, 91, 147, .75);
+
+  --bg-color: rgb(255, 255, 255);
+  --bg-modal-color: rgba(255, 255, 255, .75);
+  --bg-alternate-color: rgb(243, 243, 243);
+  --bg-alternate-modal-color: rgba(243, 243, 243, .75);
+  --border-color: #DDD;
+
+  --text-color: #333;
+  --title-color: #000;
+
+  --link-color: var(--main-color);
+  --link-hover-color: var(--second-color);
+
+  --max-width: 1200px;
+  --navbar-height: 4rem;
+
+  --logo-width: 4rem;
+  --logo-height: 4rem;
+  --logo-spacing: .5rem;
+}
+
+/* ********** Variables Sass ********** */
+$breakpoints: (
+  xs: 20em, /* 320 / 16  */
+  s: 30em, /* 480 / 16  */
+  m: 45em, /* 720 / 16 */
+  l: 64em, /* 1024 / 16 */
+  xl: 75em /* 1200/ 16 */
+);

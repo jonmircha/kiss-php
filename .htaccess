@@ -1,0 +1,139 @@
+# Comentarios htaccess
+
+# Codificación UTF-8
+AddDefaultCharset UTF-8
+AddCharset UTF-8 .html .css .php .txt .js .json .xml
+
+# Idioma
+DefaultLanguage es-MX
+
+# URLs Amigables
+
+# Se permite mostrar contenido negociando diferentes valores
+Options +MultiViews
+<IfModule mod_rewrite.c>
+  # Seguir enlaces simbólicos
+  Options +FollowSymlinks
+  # Activar la sobreescritura
+  RewriteEngine On
+  # Se sobreescibren reglas condicionales
+  # Acceder a archivos que existan
+  RewriteCond %{REQUEST_FILENAME} !-f
+  # Acceder a directorios que existan
+  RewriteCond %{REQUEST_FILENAME} !-d
+  # Regla para crear URLs Amigables con archivos PHP y paso de variables
+  RewriteRule ^(.*)$ index.php?page=$1 [QSA,L]
+  # Regla para crear URLs Amigables con archivos HTML quitándole la extensión .html
+  RewriteRule ^([^\.]+)$ $1.html [NC,L]
+</IfModule>
+
+# Deshabilitar la navegación de directorios
+Options All -Indexes
+
+# Proteger el archivo de configuración
+<Files .htaccess>
+  Order Allow,Deny
+  Deny from all
+</Files>
+
+# Prevenir ataques comunes e inyección de códigos
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Bloquea cualquier inclusión local de archivos mediante el proc/self/environ
+  RewriteCond %{QUERY_STRING} proc/self/environ [OR]
+  # Bloquea cualquier script que intente establecer un valor mosConfig a través de la URL
+  RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|\%3D) [OR]
+  # Bloquea cualquier script que intente enviar cualquier código en base64_encode a través de URL
+  RewriteCond %{QUERY_STRING} base64_encode.*(.*) [OR]
+  # Bloquea cualquier script que incluya una etiqueta <script> en la URL
+  RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E) [NC,OR]
+  # Bloquea cualquier secuencia de comandos que intente establecer una variable GLOBAL de PHP a través de la URL
+  RewriteCond %{QUERY_STRING} GLOBALS(=|[|\%[0-9A-Z]{0,2}) [OR]
+  # Bloquea cualquier script que intente modificar una variable _REQUEST a través de la URL
+  RewriteCond %{QUERY_STRING} _REQUEST(=|[|\%[0-9A-Z]{0,2})
+  # Enviar todas las solicitudes bloqueadas a la página de inicio con 403 ¡Error prohibido!
+  RewriteRule ^(.*)$ index.php [F,L]
+</IfModule>
+
+# Gzip
+<IfModule mod_deflate.c>
+  # Comprime HTML, CSS, JavaScript, Texto, XML, Fuentes, etc.
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+  AddOutputFilterByType DEFLATE application/x-font
+  AddOutputFilterByType DEFLATE application/x-font-opentype
+  AddOutputFilterByType DEFLATE application/x-font-otf
+  AddOutputFilterByType DEFLATE application/x-font-truetype
+  AddOutputFilterByType DEFLATE application/x-font-ttf
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE font/opentype
+  AddOutputFilterByType DEFLATE font/otf
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE image/x-icon
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+
+  # Elimina errores de navegadores antiguos
+  BrowserMatch ^Mozilla/4 gzip-only-text/html
+  BrowserMatch ^Mozilla/4\.0[678] no-gzip
+  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+  Header append Vary User-Agent
+</IfModule>
+
+# Cache
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access 1 month"
+  # Favicon
+  ExpiresByType image/x-icon "access 1 year"
+  # HTML
+  ExpiresByType text/html "access 1 month"
+  # CSS
+  ExpiresByType text/css "access 1 month"
+  # JS
+  ExpiresByType application/javascript "access 1 month"
+  ExpiresByType text/x-javascript "access 1 month"
+  # HTML Components (HTCs)
+  ExpiresByType text/x-component "access 1 month"
+  # Web Feeds
+  ExpiresByType application/atom+xml "access 1 hour"
+  ExpiresByType application/rss+xml "access 1 hour"
+  # Data Interchange
+  ExpiresByType application/json "access 0 seconds"
+  ExpiresByType application/xml "access 0 seconds"
+  ExpiresByType text/xml "access 0 seconds"
+  # Manifest Files
+  ExpiresByType application/x-web-app-manifest+json "access 0 seconds"
+  ExpiresByType text/cache-manifest "access 0 seconds"
+  # Multimedia
+  ExpiresByType image/gif "access 1 year"
+  ExpiresByType image/jpg "access 1 year"
+  ExpiresByType image/jpeg "access 1 year"
+  ExpiresByType image/png "access 1 year"
+  ExpiresByType image/svg+xml "access 1 year"
+  ExpiresByType audio/mp3 "access 1 year"
+  ExpiresByType audio/ogg "access 1 year"
+  ExpiresByType video/mp4 "access 1 year"
+  ExpiresByType video/ogg "access 1 year"
+  ExpiresByType video/webm "access 1 year"
+  # Web Fonts
+  ExpiresByType application/font-woff2 "access 1 year"
+  ExpiresByType application/font-woff "access 1 year"
+  ExpiresByType application/vnd.ms-fontobject "access 1 year"
+  ExpiresByType application/x-font-ttf "access 1 year"
+  ExpiresByType font/opentype "access 1 year"
+  # Others
+  ExpiresByType application/pdf "access 1 month"
+  ExpiresByType application/x-shockwave-flash "access 1 month"
+  # Specific Files
+  #<Files "https://www.google-analytics.com/ga.js">
+  #  ExpiresDefault "access plus 1 month"
+  #</Files>
+</IfModule>

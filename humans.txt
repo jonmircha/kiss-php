@@ -1,0 +1,17 @@
+/* Nombre del Proyecto - https://tudominio.com */
+
+/* TEAM */
+Tu cargo dentro del proyecto: Tu nombre.
+Site: E-mail, enlace a formulario de contacto, ...
+Twitter: tu nombre de usuario en Twitter.
+Location: Ciudad, Comunidad, País.
+
+/* THANKS */
+Name: nombre o url
+
+
+/* SITE */
+Last update: YYYY/MM/DD
+Standards: HTML5, CSS3, ...
+Components: Modernizr, jQuery, etc.
+Software: Software usado para el desarrollo del site.
