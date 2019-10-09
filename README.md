@@ -16,6 +16,7 @@ Adicionalmente puedes optimizar este kit con Node.js:
 * Optimizar imágenes.
 * Todo lo anterior automatizado con tareas Gulp.
 
+Puedes ver los siguientes [videotutoriales](https://www.youtube.com/playlist?list=PLvq-jIkSeTUZWYh18UN6Q9rfkoqy5A9Xn) para aprender a usarlo.
 
 ## Cómo usarlo:
 
@@ -49,10 +50,6 @@ Adicionalmente puedes optimizar este kit con Node.js:
 * En la carpeta `assets/img` agrega todas las imágenes de tu sitio o aplicación, no importa que no esten optimizadas para la web ejecuta el comando `npm run images` y se comprimirán en la carpeta `img`.
 * Cuando acabes tu aplicación o sitio, ejecuta el comando `npm run build` para generar las versiones finales de tus estilos y scripts.
 * Si no deseas usar las opciones de optimización con Node.js, simplemente elimina la carpeta `assets` y los archivos: `package.json`, `package-lock.json`, `gulpfile.babel.js` y `.babelrc`.
-
-## Videotutoriales
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/5ZtTHSmj884" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Licencia
 
